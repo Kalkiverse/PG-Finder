@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - PG Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"></script>
+</head>
+<body class="bg-neutral-900 flex items-center justify-center min-h-screen">
+    <div class="bg-neutral-800 text-white p-8 rounded-lg shadow-lg w-96" x-data="{userType: 'finder', isLogin: false}">
+        <h2 class="text-center text-2xl font-bold mb-6" x-text="isLogin ? 'Login' : 'Register'"></h2>
+        
+        <div class="mb-4" x-show="!isLogin">
+            <label class="block text-sm font-medium mb-2">Register As:</label>
+            <div class="flex gap-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="userType" value="owner" class="hidden" x-model="userType">
+                    <span class="w-5 h-5 inline-block border-2 border-gray-500 rounded-full flex items-center justify-center">
+                        <span class="w-2.5 h-2.5 bg-gray-500 rounded-full" x-show="userType === 'owner'"></span>
+                    </span>
+                    PG Owner
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="userType" value="finder" class="hidden" x-model="userType">
+                    <span class="w-5 h-5 inline-block border-2 border-gray-500 rounded-full flex items-center justify-center">
+                        <span class="w-2.5 h-2.5 bg-gray-500 rounded-full" x-show="userType === 'finder'"></span>
+                    </span>
+                    PG Finder
+                </label>
+            </div>
+        </div>
+        
+        <form action="process_registration.php" method="POST" x-show="!isLogin">
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Name</label>
+                <input type="text" name="name" required class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Mobile No.</label>
+                <input type="tel" name="mobile" required class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Email</label>
+                <input type="email" name="email" x-bind:required="userType === 'finder'" class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+            </div>
+            
+            <!-- PG Finder Fields -->
+            <div class="mb-4" x-show="userType === 'finder'">
+                <label class="block text-sm font-medium mb-2">Preferred PG Location</label>
+                <input type="text" name="finder_location" class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+            </div>
+            
+            <div class="mb-4" x-show="userType === 'finder'">
+                <label class="block text-sm font-medium mb-2">Gender</label>
+                <select name="finder_gender" class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <!-- PG Owner Fields -->
+            <div class="mb-4" x-show="userType === 'owner'">
+                <label class="block text-sm font-medium mb-2">Property Address</label>
+                <input type="text" name="property_address" class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+            </div>
+            
+            <div class="mb-4" x-show="userType === 'owner'">
+                <label class="block text-sm font-medium mb-2">Property Type</label>
+                <select name="property_type" class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+                    <option value="boys">Only Boys</option>
+                    <option value="girls">Only Girls</option>
+                    <option value="co-ed">Co-Ed</option>
+                </select>
+            </div>
+            
+            <div class="mb-4" x-show="userType === 'owner'">
+                <label class="block text-sm font-medium mb-2">Price</label>
+                <input type="text" name="price" class="w-full p-2 rounded-md bg-neutral-700 text-white border border-neutral-600 focus:border-gray-500 focus:ring-gray-500">
+            </div>
+            
+            <button type="submit" class="w-full bg-[#4B47D9] hover:bg-[#3A36C9] text-white py-2 rounded-md font-medium transition">Register</button>
+        </form>
+        <div class="text-center mt-4">
+    <span class="text-sm text-white">Already have an account? </span>
+    <a href="loginpage.html" class="text-lg font-semibold hover:underline transition-all duration-300 ease-in-out" style="color: #4B47D9; text-shadow: 0px 0px 10px rgba(75, 71, 217, 0.8);">Login</a>
+</div>
+    </div>
+</body>
+</html>
